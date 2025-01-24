@@ -1,4 +1,6 @@
-# app/models/group_model.py
+# app/models/group_model.py # noqa: E402
+from sqlalchemy import Column, Integer, String
+from sqlalchemy.orm import relationship
 
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship
