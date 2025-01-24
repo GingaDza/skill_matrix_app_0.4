@@ -1,8 +1,8 @@
 # tests/test_database_initialization.py
-import pytest
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from app.models import Base, User  # Userモデルを使用する場合
+import pytest # noqa: E402
+from sqlalchemy import create_engine # noqa: E402
+from sqlalchemy.orm import sessionmaker # noqa: E402
+from app.models import Base, User  # Userモデルを使用する場合 # noqa: E402
 
 
 DATABASE_URL = "sqlite:///:memory:"  # メモリ内データベースを使用する例
