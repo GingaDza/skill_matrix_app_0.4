@@ -1,12 +1,11 @@
-# app/ui/left_panel.py
+# app/ui/left_panel.py # noqa: E402
 import logging
 # PyQt5に変更
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel, QListWidget, QPushButton, QComboBox, QMessageBox, QDialog
-from PyQt5.QtCore import Qt # Qt をインポート
+from PyQt5.QtCore import Qt # Qt をインポート # noqa: E402
 
-from app.ui.dialogs import AddParticipantDialog
-from app.models.skill_matrix_model import SkillMatrix
-
+from app.ui.dialogs import AddParticipantDialog # noqa: E402
+from app.models.skill_matrix_model import SkillMatrix # noqa: E402
 
 # ログの設定
 logging.basicConfig(level=logging.DEBUG)
@@ -90,9 +89,6 @@ class LeftPanel(QWidget):
             logger.error(f"Error updating group combo box: {e}")
             self.group_combo.clear()
 
-# app/ui/left_panel.py
-# app/ui/left_panel.py
-# app/ui/left_panel.py
     def update_participants_list(self, index):
         self.participants_list.clear()
         selected_group_name = self.group_combo.itemText(index) if index >= 0 else None
@@ -104,7 +100,7 @@ class LeftPanel(QWidget):
                 if item.group
                 and item.group.name == selected_group_name
                 and not item.is_parent
-                and (not hasattr(item, 'parent') or item.parent is None ) # ここを修正
+                and (not hasattr(item, 'parent') or item.parent is None)  # ここを修正
             ]
 
             if participants:
@@ -133,7 +129,6 @@ class LeftPanel(QWidget):
                     self.update_participants_list(self.group_combo.currentIndex())
                 else:
                     self.show_error("参加者の追加に失敗しました")
-
             else:
                 self.show_error("参加者名を入力してください")
 
