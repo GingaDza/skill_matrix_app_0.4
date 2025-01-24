@@ -1,9 +1,10 @@
-# app/models/skill_matrix_model.py
+# app/models/skill_matrix_model.py # noqa: E402
+
 from sqlalchemy import create_engine, Column, Integer, String, ForeignKey, Boolean
 from sqlalchemy.orm import sessionmaker, relationship
-from app.models.base import Base
+from app.models.base import Base  # noqa: E402
 from typing import List
-from app.models.database import Group, SkillMatrix
+from app.models.database import Group, SkillMatrix  # noqa: E402
 
 class SkillMatrixModel():
     def __init__(self, db_url="sqlite:///./your_database.db"):
@@ -27,7 +28,7 @@ class SkillMatrixModel():
     def get_skill_matrix(self) -> List[SkillMatrix]:
         """skill_matrixテーブルのレコードをすべて取得する。"""
         return self.session.query(SkillMatrix).all()
-    
+
     def add_skill(self, group_name: str, parent_name: str, child_name: str, level: int) -> bool:
         try:
             group = self._get_group(group_name)
@@ -48,7 +49,7 @@ class SkillMatrixModel():
                 new_skill = SkillMatrix(skill_name=str(level), group_id=group.id, parent_id=parent.id, is_parent=False)
             else:
                 new_skill = SkillMatrix(skill_name=str(level), group_id=group.id, is_parent=False)
-            
+
             self.session.add(new_skill)
             self.session.commit()
             return True
@@ -56,7 +57,7 @@ class SkillMatrixModel():
             print(f"Error adding skill: {e}")
             self.session.rollback()
             return False
-    
+
     def rename_skill(self, group_name: str, parent_name: str, child_name: str, skill_level: int, new_skill_level:int) -> bool:
         try:
             group = self._get_group(group_name)
@@ -111,7 +112,7 @@ class SkillMatrixModel():
 
             if not skill:
                 return False
-            
+
             self.session.delete(skill)
             self.session.commit()
             return True
@@ -134,7 +135,7 @@ class SkillMatrixModel():
             print(f"Error adding group: {e}")
             self.session.rollback()
             return False
-    
+
     def rename_group(self, old_group_name: str, new_group_name: str) -> bool:
         try:
             existing_group = self._get_group(new_group_name)
