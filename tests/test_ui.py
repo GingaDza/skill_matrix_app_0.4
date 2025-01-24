@@ -1,11 +1,10 @@
 # tests/test_ui.py
-import pytest
+import pytest # noqa: E402
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QTabWidget, QVBoxLayout, QWidget, QLabel, QPushButton, QLineEdit
-from PyQt5.QtCore import pyqtSignal
+from PyQt5.QtCore import pyqtSignal # noqa: E402
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.QtCore import Qt
-
 
 class MockController:
     pass
@@ -46,16 +45,14 @@ class MainWindow(QMainWindow):
         self.buttonClicked.emit("Button Clicked")
 
 def create_main_window(qtbot):
-        
-        controller = MockController()
-        window = MainWindow(controller)
-        qtbot.addWidget(window)
-        return window
+    controller = MockController()
+    window = MainWindow(controller)
+    qtbot.addWidget(window)
+    return window
 
 @pytest.fixture
 def mock_main_window(qtbot):
-        return create_main_window(qtbot)
-
+    return create_main_window(qtbot)
 
 def test_main_window_init(mock_main_window):
     window = mock_main_window
@@ -78,7 +75,7 @@ def test_tab_widget_exists(mock_main_window):
 def test_tab_switching(mock_main_window, qtbot):
     window = mock_main_window
     tab_widget = window.findChild(QTabWidget)
-    assert tab_widget.currentIndex() == 0 # 初期表示は1番目のタブ
+    assert tab_widget.currentIndex() == 0  # 初期表示は1番目のタブ
 
     # タブの切り替えテストを削除
 
@@ -88,7 +85,6 @@ def test_button_click(mock_main_window, qtbot):
     label = window.findChild(QLabel)
     qtbot.mouseClick(button, Qt.MouseButton.LeftButton)
     assert label.text() == "Button Clicked"
-
 
 def test_button_click_signal(mock_main_window, qtbot):
     window = mock_main_window

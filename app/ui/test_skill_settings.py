@@ -1,6 +1,6 @@
 import unittest
-from unittest.mock import MagicMock
-from app.models.skill_matrix_model import SkillMatrix
+from unittest.mock import MagicMock # noqa: E402
+from app.models.skill_matrix_model import SkillMatrix # noqa: E402
 
 
 # モッククラスの定義
