@@ -1,9 +1,9 @@
 # tests/test_initial_settings_tab.py
 
-import pytest
-from unittest.mock import MagicMock
-from app.ui.initial_settings_tab import InitialSettingsTab
-from pytestqt import qtbot
+import pytest # noqa: E402
+from unittest.mock import MagicMock # noqa: E402
+from app.ui.initial_settings_tab import InitialSettingsTab # noqa: E402
+from pytestqt import qtbot # noqa: E402
 
 def test_initial_settings_tab_import():
     # InitialSettingsTab クラスが正しくインポートされているか
