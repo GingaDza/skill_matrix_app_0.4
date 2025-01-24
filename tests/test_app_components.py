@@ -1,4 +1,5 @@
-import unittest
+# test_app_components.py
+import unittest # noqa: E402
 from PyQt5.QtWidgets import QApplication, QWidget
 
 class TestAppComponents(unittest.TestCase):
