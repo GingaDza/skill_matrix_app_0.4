@@ -1,9 +1,9 @@
-# app/ui/initial_settings_tab.py
+# app/ui/initial_settings_tab.py # noqa: E402
 import logging
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QMessageBox
-from PyQt5.QtCore import pyqtSignal  # ここでpyqtSignalをインポート
+from PyQt5.QtCore import pyqtSignal  # ここでpyqtSignalをインポート # noqa: E402
 from typing import Optional, Tuple
-from PyQt5.QtCore import QTimer
+from PyQt5.QtCore import QTimer  # noqa: E402
 
 # 遅延インポートを適用
 class InitialSettingsTab(QWidget):
@@ -37,12 +37,12 @@ class InitialSettingsTab(QWidget):
         list_layout.addWidget(self.category_settings)
         list_layout.addWidget(self.skill_settings)
         main_layout.addLayout(list_layout)
-        main_layout.addWidget(self.add_tab_button)
+        main_layout.addWidget(self.add_tab_button)  # noqa: E701
         
         self.setLayout(main_layout)
 
         # シグナル接続
-        QTimer.singleShot(100, self.setup_signals) # 100ms後に実行
+        QTimer.singleShot(100, self.setup_signals)  # 100ms後に実行
 
         logging.debug("InitialSettingsTab initialized.")
         self.initialized.emit()
@@ -65,7 +65,7 @@ class InitialSettingsTab(QWidget):
     
     def setup_signals(self):
         logging.debug("Setting up signals...")
-        QTimer.singleShot(200, self.validate_and_connect) # 200ms後に実行
+        QTimer.singleShot(200, self.validate_and_connect)  # 200ms後に実行
         
     def validate_and_connect(self):
         
@@ -74,7 +74,7 @@ class InitialSettingsTab(QWidget):
             self.show_error("初期化に失敗しました。グループ設定が初期化されていません")
             return
         
-        if not self.category_settings or not hasattr(self.category_settings, 'parent_category_list') or not self.category_settings.parent_category_list or not self.category_settings.parent_category_list.count() > 0: # ここを修正
+        if not self.category_settings or not hasattr(self.category_settings, 'parent_category_list') or not self.category_settings.parent_category_list or not self.category_settings.parent_category_list.count() > 0:  # ここを修正
              logging.error("Error : Parent Category not initialized")
              self.show_error("初期化に失敗しました。親カテゴリ設定が初期化されていません")
              return
