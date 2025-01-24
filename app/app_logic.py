@@ -1,10 +1,16 @@
-# app/app_logic.py
+# app/app_logic.py # noqa: E402
 
 class AppLogic:
     def __init__(self):
         pass
 
     def some_method(self):
-      return "hello"
+        return "hello"
 
-    # 必要に応じて、他のメソッドや属性を追加
+    def another_method(self):
+        return "world"
+
+    def add_numbers(self, a, b):
+        return a + b
+
+    # 他の必要なメソッドや属性をここに追加できます
