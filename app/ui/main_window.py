@@ -1,4 +1,6 @@
-from PyQt5.QtWidgets import QLineEdit, QPushButton
+# app/main_window.py # noqa: E402
+from PyQt5.QtWidgets import QLineEdit, QPushButton, QMainWindow, QVBoxLayout, QTableWidget, QTableWidgetItem, QWidget, QApplication
+from app.models import get_all_employees, Employee, session  # 必要なインポートを追加
 
 class MainWindow(QMainWindow):
     def __init__(self):
