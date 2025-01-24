@@ -1,3 +1,4 @@
+# app/controllers/main_controller.py # noqa: E402
 from PyQt5.QtWidgets import QPushButton
 
 class MainController:
