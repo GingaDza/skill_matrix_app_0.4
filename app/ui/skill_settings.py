@@ -1,27 +1,27 @@
-# app/ui/skill_settings.py
+# app/ui/skill_settings.py # noqa: E402
 import logging
-from PyQt5.QtWidgets import QWidget, QVBoxLayout,  QLabel, QListWidget, QPushButton, QComboBox, QMessageBox, QDialog
-from PyQt5.QtCore import Qt
-from app.ui.dialogs import EditSkillDialog, DeleteConfirmationDialog
-from app.models.skill_matrix_model import SkillMatrixModel # SkillMatrixModel をインポート
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QListWidget, QPushButton, QComboBox, QMessageBox, QDialog
+from PyQt5.QtCore import Qt # noqa: E402
+from app.ui.dialogs import EditSkillDialog, DeleteConfirmationDialog # noqa: E402
+from app.models.skill_matrix_model import SkillMatrixModel # SkillMatrixModel をインポート # noqa: E402
 from typing import Optional
 
 logger = logging.getLogger(__name__)
 
 class SkillSettings(QWidget):
-    def __init__(self, controller,initial_settings_tab): # initial_settings_tab を追加
+    def __init__(self, controller, initial_settings_tab):  # initial_settings_tab を追加
         super().__init__()
         logger.debug("Initializing SkillSettings...")
         self.controller = controller
         self.skill_matrix_model = SkillMatrixModel()
-        self.initial_settings_tab = initial_settings_tab # ここで設定
+        self.initial_settings_tab = initial_settings_tab  # ここで設定
 
         # スキルレベルリスト
         self.skill_level_list = QListWidget()
         # スキルレベルコンボボックス
-        self.skill_group_combo = QComboBox() # グループ選択コンボボックスを追加
+        self.skill_group_combo = QComboBox()  # グループ選択コンボボックスを追加
         self.skill_level_combo = QComboBox()
-        self.skill_level_combo.addItems([str(i) for i in range(1, 11)]) # 1から10までのコンボボックス
+        self.skill_level_combo.addItems([str(i) for i in range(1, 11)])  # 1から10までのコンボボックス
         self.skill_level_combo.setCurrentText("1")
 
         # スキルレベル操作ボタン
@@ -42,15 +42,15 @@ class SkillSettings(QWidget):
         main_layout.addLayout(skill_layout)
         self.setLayout(main_layout)
 
-         # ボタンのイベント接続
+        # ボタンのイベント接続
         self.skill_add_button.clicked.connect(self.on_add_skill)
         self.skill_save_button.clicked.connect(self.on_save_skill)  # スキル編集ボタンの接続
         self.skill_delete_button.clicked.connect(self.on_delete_skill)
-        
-        self.skill_group_combo.currentIndexChanged.connect(self.update_skill_level_list) # スキルグループコンボボックスのイベント接続
+
+        self.skill_group_combo.currentIndexChanged.connect(self.update_skill_level_list)  # スキルグループコンボボックスのイベント接続
         logger.debug("SkillSettings Initialized.")
         self.setup_group_combo()
-    
+
     def _get_selected_skill_info(self) -> tuple[Optional[str], Optional[str], Optional[str]]:
         selected_group_name = self.skill_group_combo.currentText()
         selected_parent = self.initial_settings_tab.category_settings.parent_category_list.currentItem()
@@ -72,20 +72,20 @@ class SkillSettings(QWidget):
             return
 
         logger.debug(f"Adding skill for group: {selected_group_name}")
-        
+
         try:
-          new_skill_level = int(self.skill_level_combo.currentText())
+            new_skill_level = int(self.skill_level_combo.currentText())
         except ValueError:
-           self.show_error("無効なスキルレベルが選択されました。")
-           return
-        
+            self.show_error("無効なスキルレベルが選択されました。")
+            return
+
         skill_levels_to_add = list(range(1, new_skill_level + 1))
-        
+
         if selected_parent and selected_child:
             parent_name = selected_parent
             child_name = selected_child
             for level in skill_levels_to_add:
-                 self.skill_matrix_model.add_skill(selected_group_name, parent_name , child_name, level)
+                self.skill_matrix_model.add_skill(selected_group_name, parent_name, child_name, level)
         else:
             for level in skill_levels_to_add:
                 self.skill_matrix_model.add_skill(selected_group_name, None, None, level)
@@ -149,12 +149,12 @@ class SkillSettings(QWidget):
         selected_group_name, selected_parent, selected_child = self._get_selected_skill_info()
 
         logger.debug(f"Updating skill level list for group: {selected_group_name}, parent: {selected_parent}, child: {selected_child}")
-        
+
         # InitialSettingsTab の fetch_skill_levels メソッドを利用する
         if not selected_group_name:
             logger.debug("No group selected to update skill level list.")
             return
-        
+
         skill_levels_to_display = self.initial_settings_tab.fetch_skill_levels(selected_group_name, selected_parent, selected_child)
         self._populate_skill_level_list(skill_levels_to_display)
 
@@ -172,22 +172,22 @@ class SkillSettings(QWidget):
             self.skill_level_combo.setCurrentText("1")
 
     def setup_group_combo(self):
-      try:
-        skill_matrix = self.initial_settings_tab.skill_matrix_model.get_skill_matrix()
-        groups = {item.group.name for item in skill_matrix if item.group}
-        if not groups:
-            self.show_error("利用可能なグループがありません。新しいグループを追加してください。")
-            return
-        self.skill_group_combo.addItems(groups)
-        self.skill_group_combo.currentIndexChanged.connect(self.update_skill_level_list)
-      except Exception as e:
+        try:
+            skill_matrix = self.initial_settings_tab.skill_matrix_model.get_skill_matrix()
+            groups = {item.group.name for item in skill_matrix if item.group}
+            if not groups:
+                self.show_error("利用可能なグループがありません。新しいグループを追加してください。")
+                return
+            self.skill_group_combo.addItems(groups)
+            self.skill_group_combo.currentIndexChanged.connect(self.update_skill_level_list)
+        except Exception as e:
             logger.error(f"setup_group_combo: {e}")
             self.show_error("setup_group_combo: グループコンボボックスの初期設定に失敗しました。")
 
     def show_error(self, message):
-         logger.error(f"Error: {message}")
-         error_dialog = QMessageBox(self)
-         error_dialog.setIcon(QMessageBox.Icon.Critical)
-         error_dialog.setText(message)
-         error_dialog.setWindowTitle("エラー")
-         error_dialog.exec()
+        logger.error(f"Error: {message}")
+        error_dialog = QMessageBox(self)
+        error_dialog.setIcon(QMessageBox.Icon.Critical)
+        error_dialog.setText(message)
+        error_dialog.setWindowTitle("エラー")
+        error_dialog.exec()
