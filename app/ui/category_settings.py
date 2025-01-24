@@ -1,3 +1,4 @@
+
 import logging
 from PyQt5.QtWidgets import QMessageBox, QLabel, QDialog, QWidget, QVBoxLayout, QHBoxLayout, QListWidget, QPushButton
 from app.ui.dialogs import AddCategoryDialog, DeleteConfirmationDialog
