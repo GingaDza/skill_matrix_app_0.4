@@ -1,6 +1,6 @@
-# app/initialize_db.py
+# app/initialize_db.py # noqa: E402
 from app.models.database import engine, DATABASE_URL
-from app.models.base import Base
+from app.models.base import Base # noqa: E402
 from sqlalchemy import inspect
 from app.models.database import Group, SkillMatrix
 from sqlalchemy.orm import sessionmaker
@@ -12,7 +12,7 @@ def init_db():
         if table_name != 'alembic_version':  # alembicのテーブル以外を削除
             Base.metadata.drop_all(bind=engine, tables=[Base.metadata.tables[table_name]])
 
-    # データベースの初期化（テーブル作成など）
+    # データベースの初期化（テーブル作成など） # noqa: E402
     Base.metadata.create_all(bind=engine)
 
     # 初期データの投入
