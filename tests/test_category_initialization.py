@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import patch, MagicMock
 from PyQt5.QtWidgets import QApplication
-from app.ui.category_settings import CategorySettings
+from app.ui.category_settings import CategorySettings  # noqa: E402
 
 class TestCategorySettingsInitialization(unittest.TestCase):
 

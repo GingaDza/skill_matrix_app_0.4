@@ -1,3 +1,5 @@
+# test_pyqt.py
+# noqa: E402
 from PyQt5.QtWidgets import QApplication
 
 try:
