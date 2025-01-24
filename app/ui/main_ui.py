@@ -1,10 +1,10 @@
-# app/ui/main_ui.py
+# app/ui/main_ui.py # noqa: E402
 import logging
 from PyQt5.QtWidgets import QMainWindow, QHBoxLayout, QVBoxLayout, QWidget, QTabWidget, QComboBox, QLabel, QMessageBox
-from app.ui.initial_settings_tab import InitialSettingsTab
-from app.ui.tabs import CustomTab
-from app.controllers.main_controller import MainController
-from app.ui.left_panel import LeftPanel
+from app.ui.initial_settings_tab import InitialSettingsTab # noqa: E402
+from app.ui.tabs import CustomTab # noqa: E402
+from app.controllers.main_controller import MainController # noqa: E402
+from app.ui.left_panel import LeftPanel # noqa: E402
 
 from PyQt5.QtCore import Qt
 # ログの設定
@@ -36,13 +36,13 @@ class MainWindow(QMainWindow):
         self.initial_settings_tab = InitialSettingsTab(controller)
         self.tab_widget.addTab(self.initial_settings_tab, "初期設定")
         
-         # グループ選択コンボボックスと参加者リストの配置
+        # グループ選択コンボボックスと参加者リストの配置
         self.left_panel = LeftPanel(controller, self.initial_settings_tab)
         self.left_layout.addWidget(self.left_panel)
 
-         # グループ追加シグナルの接続
+        # グループ追加シグナルの接続
         self.initial_settings_tab.group_added.connect(self.on_group_added)
-         # 新規タブ追加ボタンのクリックイベント接続
+        # 新規タブ追加ボタンのクリックイベント接続
         self.initial_settings_tab.add_tab_button.clicked.connect(self.on_add_tab_clicked)
         
         # データベース接続とビュー更新
@@ -52,7 +52,7 @@ class MainWindow(QMainWindow):
         logger.debug("MainWindow initialized.")
 
     def setup_left_panel(self):
-       self.left_panel.setup_group_combo()
+        self.left_panel.setup_group_combo()
 
     def on_add_tab_clicked(self):
         selected_group_name = self.left_panel.group_combo.currentText()
@@ -66,5 +66,5 @@ class MainWindow(QMainWindow):
         self.tab_widget.addTab(new_tab, selected_group_name)
 
     def on_group_added(self, group_name):
-         logger.debug(f"Group added signal received: {group_name}")
-         self.setup_left_panel()
+        logger.debug(f"Group added signal received: {group_name}")
+        self.setup_left_panel()
